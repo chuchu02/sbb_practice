@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class MainController {
-    @RequestMapping("/usr/article")
+    @RequestMapping("/sbb")
     @ResponseBody
     public String index() {
         return "index";
