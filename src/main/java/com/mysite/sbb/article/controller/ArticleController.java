@@ -66,6 +66,13 @@ public class ArticleController {
         return "%d번 게시물이 삭제되었습니다.".formatted(id);
     }
 
+    @RequestMapping("/findByTitle")
+    @ResponseBody
+    public List<Article> showArticlefindByTitle(@RequestParam String title) {
+        List<Article> article = articleRepository.findByTitle(title);
+        return article;
+    }
+
     @RequestMapping("/doWrite")
     @ResponseBody
     public String doWrite(String title, String body) {
