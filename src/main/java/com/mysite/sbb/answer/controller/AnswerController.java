@@ -1,24 +1,27 @@
 package com.mysite.sbb.answer.controller;
 
-import com.mysite.sbb.answer.dao.AnswerRepository;
-import com.mysite.sbb.answer.domain.Answer;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mysite.sbb.answer.service.AnswerService;
+import com.mysite.sbb.question.domain.Question;
+import com.mysite.sbb.question.service.QuestionService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/answer")
+@AllArgsConstructor
 public class AnswerController {
+    private final QuestionService questionService;
+    private final AnswerService answerService;
 
-    @Autowired
-    private AnswerRepository answerRepository;
-
-    @RequestMapping("/list")
-    @ResponseBody
-    public List<Answer> showAnswers() {
-        return answerRepository.findAll();
+    @PostMapping("/create/{id}")
+    public String createAnswer(Model model, @PathVariable("id") Integer id, @RequestParam String content) {
+        Question question = this.questionService.getQuestion(id);
+        this.answerService.create(question, content);
+        return String.format("redirect:/question/detail/%s", id);
     }
 }
