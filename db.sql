@@ -33,7 +33,8 @@ CREATE TABLE Answer (
     id INT(11) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     content TEXT NOT NULL,
     create_date DATETIME NOT NULL,
-    question_id INT(11) UNSIGNED NOT NULL
+    question_id INT(11) UNSIGNED NOT NULL,
+    reply_like BOOLEAN NOT NULL
 );
 
 INSERT INTO Answer SET
@@ -51,5 +52,6 @@ create_date = NOW(),
 content = '답변내용 3',
 question_id = 3;
 
+ALTER TABLE Question ADD view_count INT(11) DEFAULT 0;
 SELECT * FROM Question;
 SELECT * FROM Answer;
