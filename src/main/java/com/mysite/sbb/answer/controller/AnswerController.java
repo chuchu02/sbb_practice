@@ -15,13 +15,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/answer")
 @AllArgsConstructor
 public class AnswerController {
+
     private final QuestionService questionService;
     private final AnswerService answerService;
 
     @PostMapping("/create/{id}")
     public String createAnswer(Model model, @PathVariable("id") Integer id, @RequestParam String content) {
         Question question = this.questionService.getQuestion(id);
+        // 질문만들기
         this.answerService.create(question, content);
         return String.format("redirect:/question/detail/%s", id);
     }
+
+    @PostMapping("/like/{questionId}/{answerId}")
+    public String createAnswer(@PathVariable("questionId") Integer questionId, @PathVariable("answerId") Integer answerId) {
+        this.answerService.setLike(answerId);
+
+        return String.format("redirect:/question/detail/%s", questionId);
+    }
+
 }

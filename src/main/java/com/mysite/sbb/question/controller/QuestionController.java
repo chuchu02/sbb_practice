@@ -20,9 +20,10 @@ public class QuestionController {
     private QuestionService questionService;
 
     @RequestMapping("/list")
-    public String showQuestion(Model model) {
+    public String showQuestions(Model model) {
         List<Question> questionList =  questionService.getList();
         model.addAttribute("questionList", questionList);
+
         return "question_list";
     }
 
@@ -30,8 +31,7 @@ public class QuestionController {
     public String detail(Model model, @PathVariable("id") Integer id) {
         Question question = this.questionService.getQuestion(id);
         model.addAttribute("question", question);
-
+        // 조회수 기능 구현
         return "question_detail";
     }
 }
-

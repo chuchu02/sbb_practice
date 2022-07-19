@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>질문 상세</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
 </head>
 <body>
-<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
 <div class="container my-3">
+    <h2 class="border-bottom py-2" th:text="${question.subject}"></h2><div th:text="|조회수: ${question.viewCount}|" class="d-flex justify-content-end"></div>
     <!-- 질문 -->
-    <h2 class="border-bottom py-2" th:text="${question.subject}"></h2>
+
     <div class="card my-3">
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line;" th:text="${question.content}"></div>
@@ -27,6 +28,11 @@
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line;" th:text="${answer.content}"></div>
             <div class="d-flex justify-content-end">
+                <div class="badge bg-light text-dark p-2">
+                    <form th:action="@{|/answer/like/${question.id}/${answer.id}|}" method="post">
+                        <button th:classappend="${answer.replyLike}? 'text-white bg-danger' : '' " class="border-0" th:text="좋아요" type="submit"></button>
+                    </form>
+                </div>
                 <div class="badge bg-light text-dark p-2 text-start">
                     <div th:text="${#temporals.format(answer.createDate, 'yyyy-MM-dd HH:mm')}"></div>
                 </div>
@@ -35,9 +41,10 @@
     </div>
     <!-- 답변 반복 끝  -->
     <!-- 답변 작성 -->
-<form  th:action="@{|/answer/create/${question.id}|}" method="POST">
-    <textarea required placeholder="답변내용을 등록해주세요." name="content" rows="15"></textarea>
-    <input type="submit" value="작성">
-</form>
+    <form th:action="@{|/answer/create/${question.id}|}" method="post" class="my-3">
+        <textarea name="content" id="content" rows="10" class="form-control"></textarea>
+        <input type="submit" value="답변등록" class="btn btn-primary my-2">
+    </form>
+</div>
 </body>
 </html>
