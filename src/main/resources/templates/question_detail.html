@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>질문 상세</title>
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 </head>
 <body>
-<div class="container my-3">
-    <h2 class="border-bottom py-2" th:text="${question.subject}"></h2><div th:text="|조회수: ${question.viewCount}|" class="d-flex justify-content-end"></div>
+<div layout:fragment="content" class="container my-3">
+    <h2 class="border-bottom py-2" th:text="${question.subject}"></h2><div th:text="|조회수: ${question.viewCount}|" class="d-flex justify-content-end fw-bold"></div>
     <!-- 질문 -->
 
     <div class="card my-3">
