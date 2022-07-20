@@ -6,8 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,5 +32,16 @@ public class QuestionController {
         model.addAttribute("question", question);
         // 조회수 기능 구현
         return "question_detail";
+    }
+
+    @GetMapping("/create")
+    public String questionCreate() {
+        return "question_form";
+    }
+
+    @PostMapping("/create")
+    public String questionCreate(@RequestParam String subject, @RequestParam String content) {
+        this.questionService.create(subject, content);
+        return "redirect:/question/list";
     }
 }
